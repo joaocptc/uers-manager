@@ -3,7 +3,7 @@ package com.example.users.controllers.user;
 import com.example.users.core.dtos.UserDTO;
 import com.example.users.usecase.UserUseCase;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,10 +16,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/users")
+@Slf4j
 public class UserController {
 
     private final UserUseCase userUseCase;
@@ -27,18 +29,26 @@ public class UserController {
     @PostMapping
     public ResponseEntity<UserDTO> save(@RequestBody final UserDTO dto) {
 
-        return null;
+        log.info("[UserController - save] Requisição HTTP POST recebida");
+
+        var result = userUseCase.createUser(dto);
+        return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
     @GetMapping
-    private ResponseEntity<Page<UserDTO>> find(@RequestParam final LocalDateTime minDate,
-                                               @RequestParam final LocalDateTime maxDate) {
+    private ResponseEntity<List<UserDTO>> find(@RequestParam(name = "min-date", required = false) final LocalDateTime minDate,
+                                               @RequestParam(name = "max-date", required = false) final LocalDateTime maxDate) {
 
-        return null;
+        log.info("[UserController - find] Requisição HTTP GET recebida");
+
+        var result = userUseCase.findUsers(null, null);
+        return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
     @PutMapping("/{id}")
     private ResponseEntity<HttpStatus> update(@PathVariable final long id) {
+
+        log.info("[UserController - update] Requisição HTTP PUT recebida");
 
         return null;
     }
