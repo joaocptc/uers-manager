@@ -1,8 +1,9 @@
 package com.example.users.core.entities;
 
-import com.sun.istack.NotNull;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.Entity;
@@ -17,19 +18,15 @@ import java.time.LocalDateTime;
 @Builder
 @Entity
 @Table(name = "user")
+@AllArgsConstructor
+@NoArgsConstructor
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-
-    @NotNull
     private String username;
-
-    @NotNull
     private String email;
-
-    @NotNull
     private String password;
     private LocalDateTime createdAt;
 }
