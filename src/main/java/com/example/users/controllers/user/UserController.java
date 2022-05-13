@@ -5,6 +5,7 @@ import com.example.users.core.dtos.UserDTO;
 import com.example.users.usecase.UserUseCase;
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.info.Contact;
 import io.swagger.v3.oas.annotations.info.Info;
 import io.swagger.v3.oas.annotations.servers.Server;
@@ -64,8 +65,8 @@ public class UserController {
 
     @Operation(summary = "Permite a consulta de usuários")
     @GetMapping
-    public ResponseEntity<List<UserDTO>> find(@RequestParam(name = "page", required = false) final Integer page,
-                                              @RequestParam(name = "page-size", required = false) final Integer pageSize) {
+    public ResponseEntity<List<UserDTO>> find(@Parameter(description = "Página desejada") @RequestParam(name = "page", required = false) final Integer page,
+                                              @Parameter(description = "Quantidade de registros por página, máximo de 30") @RequestParam(name = "page-size", required = false) final Integer pageSize) {
 
         log.info("[UserController - find] Requisição HTTP GET recebida");
 
@@ -81,7 +82,7 @@ public class UserController {
 
     @Operation(summary = "Permite atualização dos dados do usuário")
     @PutMapping("/{id}")
-    public ResponseEntity<HttpStatus> update(@PathVariable final long id,
+    public ResponseEntity<HttpStatus> update(@Parameter(description = "Código do usuário") @PathVariable final long id,
                                              @RequestBody final UserDTO dto) {
 
         log.info("[UserController - update] Requisição HTTP PUT recebida");
