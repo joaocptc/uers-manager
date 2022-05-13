@@ -11,7 +11,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -28,5 +27,4 @@ public class User {
     private String username;
     private String email;
     private String password;
-    private LocalDateTime createdAt;
 }

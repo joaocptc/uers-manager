@@ -11,5 +11,5 @@ public interface UserUseCase {
 
     List<UserDTO> findUsers(FiltersDTO filters);
 
-    void updateUser(UserDTO dto);
+    void updateUser(UserDTO dto, long id);
 }

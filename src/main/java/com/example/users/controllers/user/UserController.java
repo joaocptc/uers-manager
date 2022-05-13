@@ -3,6 +3,12 @@ package com.example.users.controllers.user;
 import com.example.users.core.dtos.FiltersDTO;
 import com.example.users.core.dtos.UserDTO;
 import com.example.users.usecase.UserUseCase;
+import io.swagger.v3.oas.annotations.OpenAPIDefinition;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.info.Contact;
+import io.swagger.v3.oas.annotations.info.Info;
+import io.swagger.v3.oas.annotations.servers.Server;
+import io.swagger.v3.oas.annotations.servers.ServerVariable;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -20,9 +26,24 @@ import java.util.List;
 
 import static java.util.Objects.isNull;
 
+@OpenAPIDefinition(
+        info = @Info(
+                title = "API User Manager",
+                description = "API desenvolvida para realizar a gestão de usuários",
+                version = "1.000",
+                contact = @Contact(name = "@joãocarlos", email = "jcarlosptc@live.com")
+        ),
+        servers = @Server(
+                url = "http://localhost:8080",
+                description = "Servidor Local",
+                variables = {
+                        @ServerVariable(name = "serverUrl", defaultValue = "localhost"),
+                        @ServerVariable(name = "serverHttpPort", defaultValue = "8080")
+                }))
+
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/user")
 @Slf4j
 public class UserController {
 
@@ -31,15 +52,17 @@ public class UserController {
     private static final int DEFAULT_PAGE = 0;
     private static final int DEFAULT_PAGE_SIZE = 25;
 
+    @Operation(summary = "Permite o cadastro de usuários")
     @PostMapping
     public ResponseEntity<UserDTO> save(@RequestBody final UserDTO dto) {
 
         log.info("[UserController - save] Requisição HTTP POST recebida");
 
         var result = userUseCase.createUser(dto);
-        return new ResponseEntity<>(result, HttpStatus.OK);
+        return new ResponseEntity<>(result, HttpStatus.CREATED);
     }
 
+    @Operation(summary = "Permite a consulta de usuários")
     @GetMapping
     public ResponseEntity<List<UserDTO>> find(@RequestParam(name = "page", required = false) final Integer page,
                                               @RequestParam(name = "page-size", required = false) final Integer pageSize) {
@@ -56,11 +79,15 @@ public class UserController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
+    @Operation(summary = "Permite atualização dos dados do usuário")
     @PutMapping("/{id}")
-    public ResponseEntity<HttpStatus> update(@PathVariable final long id) {
+    public ResponseEntity<HttpStatus> update(@PathVariable final long id,
+                                             @RequestBody final UserDTO dto) {
 
         log.info("[UserController - update] Requisição HTTP PUT recebida");
 
-        return null;
+        userUseCase.updateUser(dto, id);
+
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }
