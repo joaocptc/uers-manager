@@ -22,7 +22,6 @@ Requisições para a API devem seguir os padrões:
 | `201` | Registro cadastrado com sucesso. |
 | `400` | Erros de validação ou os campos informados não existem no sistema.|
 | `422` | Dados informados estão fora do escopo definido para o campo.|
-| `429` | Número máximo de requisições atingido. (*aguarde alguns segundos e tente novamente*)|
 | `500` | Erro Interno do Servidor. |
 
 ### Novo (Create) [POST /user]
