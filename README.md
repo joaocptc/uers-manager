@@ -101,6 +101,15 @@ Requisições para a API devem seguir os padrões:
     + <code> mvn clean install </code>
     + <code> cd /target </code>
     + <code> java -jar users-0.0.1-SNAPSHOT.jar </code>
-
+    
+### Cobertura de testes (coverage)
++ Executar o comando abaixo para gerar o relatório de cobertura de testes:
+    + <code> mvn clean install </code>
+  
++ abrir <code> target/site/jacoco/index.html </code> para abrir o relatório.
 
 ##TODO List
++ Exception handler - mapear respostas de erro
++ Sonarqube
++ Docker
++ Deploy heroku
