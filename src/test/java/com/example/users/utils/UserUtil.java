@@ -4,6 +4,7 @@ import com.example.users.core.entities.User;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class UserUtil {
 
@@ -15,6 +16,10 @@ public class UserUtil {
                 .password("teste")
                 .email("teste@test.com")
                 .build();
+    }
+
+    public static Optional<User> buildOptionalUserWithValidData() {
+        return Optional.of(buildValidUserData());
     }
 
     public static User buildInvalidUserData() {
