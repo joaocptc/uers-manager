@@ -94,7 +94,7 @@ Requisições para a API devem seguir os padrões:
         + http://localhost:8080/swagger-ui/index.html
     
 ## Uso local
-### Executando a aplicação com maven
+### Executando a aplicação
   + Pré-requisitos
       + <a href="https://www.oracle.com/br/java/technologies/javase/jdk11-archive-downloads.html"> Java 11 </a>
   + Execute os seguintes comandos:
