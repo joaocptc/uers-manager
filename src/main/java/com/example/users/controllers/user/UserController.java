@@ -1,5 +1,6 @@
 package com.example.users.controllers.user;
 
+import com.example.users.core.dtos.ErrorsDTO;
 import com.example.users.core.dtos.FiltersDTO;
 import com.example.users.core.dtos.UserDTO;
 import com.example.users.usecase.UserUseCase;
@@ -8,6 +9,10 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.info.Contact;
 import io.swagger.v3.oas.annotations.info.Info;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.servers.Server;
 import io.swagger.v3.oas.annotations.servers.ServerVariable;
 import lombok.RequiredArgsConstructor;
@@ -54,6 +59,20 @@ public class UserController {
     private static final int DEFAULT_PAGE_SIZE = 25;
 
     @Operation(summary = "Permite o cadastro de usuários")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "Created success",
+                    content = { @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = UserDTO.class)) }),
+            @ApiResponse(responseCode = "400", description = "Bad Request",
+                    content = { @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ErrorsDTO.class)) }),
+            @ApiResponse(responseCode = "422", description = "Unprocessable Entity",
+                    content =  { @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ErrorsDTO.class)) }),
+            @ApiResponse(responseCode = "500", description = "Internal Server Error",
+                    content =  { @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ErrorsDTO.class)) })
+    })
     @PostMapping
     public ResponseEntity<UserDTO> save(@RequestBody final UserDTO dto) {
 
@@ -64,6 +83,20 @@ public class UserController {
     }
 
     @Operation(summary = "Permite a consulta de usuários")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Success",
+                    content = { @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = UserDTO.class)) }),
+            @ApiResponse(responseCode = "400", description = "Bad Request",
+                    content = { @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ErrorsDTO.class)) }),
+            @ApiResponse(responseCode = "422", description = "Unprocessable Entity",
+                    content =  { @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ErrorsDTO.class)) }),
+            @ApiResponse(responseCode = "500", description = "Internal Server Error",
+                    content =  { @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ErrorsDTO.class)) })
+    })
     @GetMapping
     public ResponseEntity<List<UserDTO>> find(@Parameter(description = "Página desejada") @RequestParam(name = "page", required = false) final Integer page,
                                               @Parameter(description = "Quantidade de registros por página, máximo de 30") @RequestParam(name = "page-size", required = false) final Integer pageSize) {
@@ -81,6 +114,20 @@ public class UserController {
     }
 
     @Operation(summary = "Permite atualização dos dados do usuário")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Success",
+                    content = { @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = UserDTO.class)) }),
+            @ApiResponse(responseCode = "400", description = "Bad Request",
+                    content = { @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ErrorsDTO.class)) }),
+            @ApiResponse(responseCode = "422", description = "Unprocessable Entity",
+                    content =  { @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ErrorsDTO.class)) }),
+            @ApiResponse(responseCode = "500", description = "Internal Server Error",
+                    content =  { @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ErrorsDTO.class)) })
+    })
     @PutMapping("/{id}")
     public ResponseEntity<HttpStatus> update(@Parameter(description = "Código do usuário") @PathVariable final long id,
                                              @RequestBody final UserDTO dto) {

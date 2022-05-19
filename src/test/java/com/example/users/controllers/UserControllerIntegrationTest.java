@@ -20,7 +20,6 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import java.util.List;
-
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
@@ -119,6 +118,17 @@ class UserControllerIntegrationTest {
         assertEquals(data.getUsername(), dto.getUsername());
         assertEquals(data.getPassword(), dto.getPassword());
         assertEquals(data.getEmail(), dto.getEmail());
+    }
+
+    @Test
+    @DisplayName("Test Update User With Incorrect ID")
+    void testUpdateUserWithIncorrectID() throws Exception {
+        var json = new ObjectMapper().writeValueAsString(UserUtil.buildValidUserData());
+
+        this.mockMvc.perform(put("/user/" + 5)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(json))
+                .andExpect(status().isUnprocessableEntity());
     }
 
 }
